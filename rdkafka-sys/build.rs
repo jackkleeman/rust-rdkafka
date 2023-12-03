@@ -219,7 +219,8 @@ fn build_librdkafka() {
         config.define("WITH_ZLIB", "1");
         config.register_dep("z");
         if let Ok(z_root) = env::var("DEP_Z_ROOT") {
-            cmake_library_paths.push(format!("{}/build", z_root));
+            config.define("ZLIB_LIBRARY", format!("{}/lib/libz.a", z_root));
+            config.define("ZLIB_INCLUDE_DIR", format!("{}/include", z_root));
         }
     } else {
         config.define("WITH_ZLIB", "0");
